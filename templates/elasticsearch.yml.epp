@@ -1,0 +1,41 @@
+cluster.name: <%= $opendistroelastic::cluster_name %>
+network.host: <%= $opendistroelastic::network_host %>
+node.name: <%= $facts[fqdn] %>
+<% if opendistroelastic::path_data { %>
+path.data: <%= $opendistroelastic::path_data %>
+<% } -%>
+# minimum_master_nodes need to be explicitly set when bound on a public IP
+# set to 1 to allow single node clusters
+discovery.seed_hosts:
+<% $opendistroelastic::elastic_servers.each |$server| { -%>- <%= $server %>
+<% } -%>
+cluster.initial_master_nodes: 
+<% $opendistroelastic::initial_master_nodes.each |$server| { -%>- <%= $server %>
+<% } -%>
+######## Start OpenDistro for Elasticsearch Security Configuration ########
+<% if $opendistroelastic::allow_unsafe_demo { %>
+############### WARNING: This is a demo configureation! ###################
+######### Revise all the lines below before you go into production ########
+<% } -%>
+opendistro_security.ssl.transport.pemcert_filepath: <%= $opendistroelastic::ssl_pemcert %>
+opendistro_security.ssl.transport.pemkey_filepath: <%= $opendistroelastic::ssl_pemkey %>
+opendistro_security.ssl.transport.pemtrustedcas_filepath: <%= $opendistroelastic::ssl_trusted_cas %>
+opendistro_security.ssl.transport.enforce_hostname_verification: <%= $opendistroelastic::hostname_verification %>
+opendistro_security.ssl.http.enabled: <%= $opendistroelastic::ssl_enabled %>
+opendistro_security.ssl.http.pemcert_filepath: <%= $opendistroelastic::ssl_pemcert %>
+opendistro_security.ssl.http.pemkey_filepath: <%= $opendistroelastic::ssl_pemkey %>
+opendistro_security.ssl.http.pemtrustedcas_filepath: <%= $opendistroelastic::ssl_trusted_cas %>
+opendistro_security.allow_unsafe_democertificates: <%= $opendistroelastic::allow_unsafe_demo %>
+opendistro_security.allow_default_init_securityindex: <%= $opendistroelastic::allow_default_init_secindex %>
+opendistro_security.authcz.admin_dn: 
+<% $opendistroelastic::security_admin_cert.each |$admin_cert| { -%>- <%= $admin_cert %><% } %>
+opendistro_security.audit.type: <%= $opendistroelastic::audit_type %>
+opendistro_security.enable_snapshot_restore_privilege: <%= $opendistroelastic::enable_snap_restore_priv %>
+opendistro_security.check_snapshot_restore_write_privileges: <%= $opendistroelastic::check_snap_restore_write_priv %>
+opendistro_security.nodes_dn:
+<% $opendistroelastic::security_nodes_dn.each |$nodes_dn| { -%>- CN=<%= $nodes_dn %>
+<% } -%>
+opendistro_security.restapi.roles_enabled: <%= $opendistroelastic::rest_api_roles %>
+cluster.routing.allocation.disk.threshold_enabled: <%= $opendistroelastic::disk_threshold_enabled %>
+node.max_local_storage_nodes: <%= $opendistroelastic::max_local_storage_nodes %>
+######## End OpenDistro for Elasticsearch Security Configuration ########
