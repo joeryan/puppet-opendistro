@@ -1,0 +1,39 @@
+---
+# This is the initial internal user database
+### WARNING: Unless production password hashes are passed in through hiera,
+### Change all passwords in the kibana GUI after installation is complete.
+# The hash value is a bcrypt hash and can be generated with plugin/tools/hash.sh
+
+_meta:
+  type: "internalusers"
+  config_version: 2
+
+# Define your internal users here
+
+## Basic users
+
+admin:
+  hash: "<%= $opendistroelastic::internal_admin_password %>"
+  reserved: true
+  backend_roles:
+  - "admin"
+  description: "internal admin user"
+
+kibanaserver:
+  hash: "<%= $opendistroelastic::internal_kibanaserver_password %>"
+  reserved: true
+  description: "internal kibanaserver user"
+
+logstash:
+  hash: "<%= $opendistroelastic::internal_logstash_password %>"
+  reserved: true
+  backend_roles:
+  - "logstash"
+  description: "internal logstash user"
+
+readall:
+  hash: "<%= $opendistroelastic::internal_readall_password %>"
+  reserved: true
+  backend_roles:
+  - "readall"
+  description: "internal readall user"
