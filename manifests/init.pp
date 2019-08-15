@@ -19,6 +19,7 @@ class opendistroelastic (
   Integer $max_local_storage_nodes                        = $opendistroelastic::params::max_local_storage_nodes,
   String  $network_host                                   = $opendistroelastic::params::network_host,
   # String  $node_name                                      = $opendistroelastic::params::node_name,
+  Boolean $node_data                                      = $opendistroelastic::params::node_data,
   String  $path_data                                      = $opendistroelastic::params::path_data,
   Array   $rest_api_roles                                 = $opendistroelastic::params::rest_api_roles,
   Array   $security_admin_cert                            = $opendistroelastic::params::security_admin_cert,

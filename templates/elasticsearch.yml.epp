@@ -1,9 +1,12 @@
 cluster.name: <%= $opendistroelastic::cluster_name %>
 network.host: <%= $opendistroelastic::network_host %>
 node.name: <%= $facts[fqdn] %>
-<% if opendistroelastic::path_data { %>
+<% if opendistroelastic::node_data  { %>
 path.data: <%= $opendistroelastic::path_data %>
+<% } else { -%>
+node.data: false
 <% } -%>
+
 # minimum_master_nodes need to be explicitly set when bound on a public IP
 # set to 1 to allow single node clusters
 discovery.seed_hosts:
