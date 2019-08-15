@@ -1,6 +1,7 @@
 ---
 # This is the initial internal user database
-### WARNING: Change all passwords in the kibana GUI after installation is complete.
+### WARNING: Unless production password hashes are passed in through hiera,
+### Change all passwords in the kibana GUI after installation is complete.
 # The hash value is a bcrypt hash and can be generated with plugin/tools/hash.sh
 
 _meta:

@@ -18,8 +18,8 @@ class opendistroelastic (
   String  $java_heap_size                                 = $opendistroelastic::params::java_heap_size,
   Integer $max_local_storage_nodes                        = $opendistroelastic::params::max_local_storage_nodes,
   String  $network_host                                   = $opendistroelastic::params::network_host,
-  # String  $node_name                                      = $opendistroelastic::params::node_name,
   Boolean $node_data                                      = $opendistroelastic::params::node_data,
+  Boolean $node_master                                    = $opendistroelastic::params::node_master,
   String  $path_data                                      = $opendistroelastic::params::path_data,
   Array   $rest_api_roles                                 = $opendistroelastic::params::rest_api_roles,
   Array   $security_admin_cert                            = $opendistroelastic::params::security_admin_cert,
@@ -31,6 +31,9 @@ class opendistroelastic (
   String  $ssl_trusted_cas                                = $opendistroelastic::params::ssl_trusted_cas,
   String  $version_elasticsearch                          = $opendistroelastic::params::version_elasticsearch,
   String  $version_opendistro                             = $opendistroelastic::params::version_opendistro,
+
+  Optional[String] $truststore_filepath                   = undef,
+  Optional[String] $truststore_password                   = undef,
 ) inherits opendistroelastic::params {
   # TODO: /etc/default/elasticsearch?
   # TODO: /etc/elasticsearch/log4j2.properties

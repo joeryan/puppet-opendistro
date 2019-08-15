@@ -15,6 +15,8 @@ server.host: <%= $opendistroelastic::kibana::server_host %>
 server.ssl.enabled: <%= $opendistroelastic::kibana::ssl_enabled %>
 server.ssl.key: <%= $opendistroelastic::kibana::ssl_key %>
 server.ssl.certificate: <%= $opendistroelastic::kibana::ssl_cert %>
+server.basePath: <%= $opendistroelastic::kibana::server_basepath %>
+server.rewriteBasePath: <%= $opendistroelastic::kibana::server_rewrite_basepath %>
 
 elasticsearch.hosts:
 <% $opendistroelastic::kibana::elastic_hosts.each |$es_host| { -%>- <%= $es_host %>

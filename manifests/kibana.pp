@@ -8,6 +8,8 @@ class opendistroelastic::kibana (
   Array   $multitennant_prefer                        = $opendistroelastic::params::kibana::multitennant_prefer,
   Array   $readonly_roles                             = $opendistroelastic::params::kibana::readonly_roles,
   String  $server_host                                = $opendistroelastic::params::kibana::server_host,
+  String  $server_basepath                            = $opendistroelastic::params::kibana::server_basepath,
+  Boolean $server_rewrite_basepath                    = $opendistroelastic::params::kibana::server_rewrite_basepath,
   String  $ssl_cert                                   = $opendistroelastic::params::kibana::ssl_cert,
   Boolean $ssl_enabled                                = $opendistroelastic::params::kibana::ssl_enabled,
   String  $ssl_key                                    = $opendistroelastic::params::kibana::ssl_key,
