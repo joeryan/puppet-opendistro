@@ -1,20 +1,24 @@
 cluster.name: <%= $opendistroelastic::cluster_name %>
+# node specific settings
 network.host: <%= $opendistroelastic::network_host %>
 node.name: <%= $facts[fqdn] %>
-<% if opendistroelastic::node_data  { %>
+<% if $opendistroelastic::node_master == false  { %>
+node.master: false
+<% } -%>
+<% if $opendistroelastic::node_data  { %>
 path.data: <%= $opendistroelastic::path_data %>
 <% } else { -%>
 node.data: false
 <% } -%>
 
-# minimum_master_nodes need to be explicitly set when bound on a public IP
-# set to 1 to allow single node clusters
+# cluster initialization settings
 discovery.seed_hosts:
 <% $opendistroelastic::elastic_servers.each |$server| { -%>- <%= $server %>
 <% } -%>
 cluster.initial_master_nodes: 
 <% $opendistroelastic::initial_master_nodes.each |$server| { -%>- <%= $server %>
 <% } -%>
+
 ######## Start OpenDistro for Elasticsearch Security Configuration ########
 <% if $opendistroelastic::allow_unsafe_demo { %>
 ############### WARNING: This is a demo configureation! ###################
@@ -24,10 +28,24 @@ opendistro_security.ssl.transport.pemcert_filepath: <%= $opendistroelastic::ssl_
 opendistro_security.ssl.transport.pemkey_filepath: <%= $opendistroelastic::ssl_pemkey %>
 opendistro_security.ssl.transport.pemtrustedcas_filepath: <%= $opendistroelastic::ssl_trusted_cas %>
 opendistro_security.ssl.transport.enforce_hostname_verification: <%= $opendistroelastic::hostname_verification %>
+<% if $opendistroelastic::truststore_filepath { -%>
+opendistro_security.ssl.transport.truststore_filepath: <%=  $opendistroelastic::truststore_filepath %>
+<% } -%>
+<% if $opendistroelastic::truststore_password { -%>
+opendistro_security.ssl.transport.truststore_password: <%=  $opendistroelastic::truststore_password %>
+<% } -%>
+
 opendistro_security.ssl.http.enabled: <%= $opendistroelastic::ssl_enabled %>
 opendistro_security.ssl.http.pemcert_filepath: <%= $opendistroelastic::ssl_pemcert %>
 opendistro_security.ssl.http.pemkey_filepath: <%= $opendistroelastic::ssl_pemkey %>
 opendistro_security.ssl.http.pemtrustedcas_filepath: <%= $opendistroelastic::ssl_trusted_cas %>
+<% if $opendistroelastic::truststore_filepath { -%>
+opendistro_security.ssl.http.truststore_filepath: <%=  $opendistroelastic::truststore_filepath %>
+<% } -%>
+<% if $opendistroelastic::truststore_password { -%>
+opendistro_security.ssl.http.truststore_password: <%=  $opendistroelastic::truststore_password %>
+<% } -%>
+
 opendistro_security.allow_unsafe_democertificates: <%= $opendistroelastic::allow_unsafe_demo %>
 opendistro_security.allow_default_init_securityindex: <%= $opendistroelastic::allow_default_init_secindex %>
 opendistro_security.authcz.admin_dn: 
