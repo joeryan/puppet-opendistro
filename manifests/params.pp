@@ -18,6 +18,7 @@ class opendistroelastic::params () {
   $internal_readall_password                        = '$2y$12$kn0RNVOWicChPSaew3XgdOYBx.XtiLWOtcyESZLkUayQqqEQSWRqS' #hash of readall, created with plugin/tools/hash.sh
   $network_host                                     = '0.0.0.0'
   $node_name                                        = 'localhost'
+  $node_data                                        = true
   $path_data                                        = ''
   $rest_api_roles                                   = ["all_access", "security_rest_api_access"]
   $security_admin_cert                              = ['CN=kirk,OU=client,O=client,L=test,C=de']
